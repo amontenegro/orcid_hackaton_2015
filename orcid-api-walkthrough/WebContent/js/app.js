@@ -30,7 +30,7 @@ HackatonApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/add_work.html',
     controller: 'AddWorkController'
   }).
-  otherwise({
+  otherwise({	  
     redirectTo: '/'
   });
 }]);

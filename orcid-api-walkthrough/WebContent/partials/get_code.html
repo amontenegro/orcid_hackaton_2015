@@ -3,15 +3,11 @@
 		<h2>ORCID API - Getting the authorization code</h2>
 		<p>Here, we ask the user for permissions over his ORCID record</p>
 		<div>
-			<form action="https://qa.orcid.org/oauth/authorize" method="get">
-				Client ID: <input type="text" name="client_id" /><br />
-				Redirect URI: <input type="text" name="redirect_uri" /><br />
-				<input type="radio" name="scope" value="/authenticate"> Authenticate Orcid<br />
-				<input type="radio" name="scope" value="/activities/read-limited"> Read activities<br />
-				<input type="radio" name="scope" value="/activities/update"> Read update<br />
-				<input type="hidden" name="response_type" value="code"/>
-				<input type="submit" value="Send">
-			</form>
+			Client ID: <input type="text" name="client_id" ng-model="form.client_id"/><br />
+			<input type="radio" name="scope" ng-model="form.scope" value="/authenticate"> Authenticate Orcid<br />
+			<input type="radio" name="scope" ng-model="form.scope" value="/activities/read-limited"> Read activities<br />
+			<input type="radio" name="scope" ng-model="form.scope" value="/activities/update"> Read update<br />			
+			<button id="submit" ng-click="getCode()">Get code</button> 
 		</div>
 	</div>
 </div>
