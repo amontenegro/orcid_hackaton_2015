@@ -1,6 +1,6 @@
 var HackatonApp = angular.module('HackatonApp', ['ngRoute','OauthController']);
 
-HackatonApp.config(['$routeProvider', function($routeProvider) {
+HackatonApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider.
   when('/', {
 	    templateUrl: 'partials/introduction.html',
@@ -16,7 +16,7 @@ HackatonApp.config(['$routeProvider', function($routeProvider) {
   }).
   when('/get_code', {
     templateUrl: 'partials/get_code.html',
-    controller: 'GetCodeController'
+    controller: 'GetPermissionsController'
   }).
   when('/get_token', {
     templateUrl: 'partials/get_token.html',
@@ -33,4 +33,6 @@ HackatonApp.config(['$routeProvider', function($routeProvider) {
   otherwise({	  
     redirectTo: '/'
   });
+  
+  $locationProvider.html5Mode(true);
 }]);

@@ -1,32 +1,28 @@
 <html ng-app="HackatonApp">
-<head>
-	<meta charset="UTF-8">
-	<title>ORCID API Walkthrough</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-route.js"></script>
-	<script src="js/app.js" type="text/javascript" ></script>
-	<script src="js/controllers.js" type="text/javascript" ></script>
-</head>
-<body>
-	
-<div class="main">
-	 
-	<div id="steps">
-		<ul>
-			<li class="selected"><a href="./#/">Introduction</a></li>
-			<li><a href="./#/description">Description</a></li>
-			<li><a href="./#/technologies">Technologies</a></li>
-			<li><a href="./#/get_code">Get access token</a></li>
-			<li><a href="./#/get_token">Get token</a></li>
-			<li><a href="./#/read_profile">Read record</a></li>
-			<li><a href="./#/add_work">Update record</a></li>			
-		</ul>
-	</div>
-	<div ng-view>
-	</div>
-	
-
-</div>
-
-</body>
+	<head>
+		<base href="/orcid-api-walkthrough/" />
+		<meta charset="UTF-8">
+		<title>ORCID API Walkthrough</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-route.js"></script>
+		<script src="js/app.js" type="text/javascript" ></script>
+		<script src="js/controllers.js" type="text/javascript" ></script>
+	</head>
+	<body>		
+		<div class="main">		 
+			<div id="steps">
+				<ul>
+					<li class="selected"><a href="./">Introduction</a></li>
+					<li><a href="description">Description</a></li>
+					<li><a href="technologies">Technologies</a></li>
+					<li><a href="get_code">Get access token</a></li>
+					<li><a href="get_token">Get token</a></li>
+					<li><a href="read_profile">Read record</a></li>
+					<li><a href="add_work">Update record</a></li>			
+				</ul>
+			</div>
+			<div ng-view>
+			</div>			
+		</div>	
+	</body>
 </html>
