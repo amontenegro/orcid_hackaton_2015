@@ -1,4 +1,4 @@
-var OauthController = angular.module("OauthController", []);
+var OauthController = angular.module("OauthController", ['ngCookies']);
 
 OauthController.controller("IntroductionController", [ '$scope', '$http',
 		'$routeParams', '$location', function($scope, $http, $routeParams, $location) {
@@ -21,8 +21,8 @@ OauthController.controller("TechnologiesController", [ '$scope', '$http',
 			console.log("In Technologies controller");
 		} ]);
 
-OauthController.controller("GetPermissionsController", [ '$scope', '$http',
-		function GetCodeController($scope, $http) {
+OauthController.controller("GetPermissionsController", [ '$scope', '$http', '$cookies',
+		function GetCodeController($scope, $http, $cookies) {
 			$scope.authString = "http://[api_url]//oauth/authorize?client_id=[client_id]&response_type=code&redirect_uri=[redirect_uri]&scope=[scope]";
 			$scope.load = function() {
 				console.log("In get code controller");
@@ -36,21 +36,26 @@ OauthController.controller("GetPermissionsController", [ '$scope', '$http',
 				apiUri = apiUri.replace('[scope]', $scope.form.scope);
 				console.log(apiUri);
 				
-				//$cookies.put('orcid_oauth2_client_id', $scope.form.client_id);
-				//$cookies.put('orcid_oauth2_redirect_uri', $scope.form.redirect_uri);
+				//Save values in cookies so we can use them later
+				$cookies.put('orcid_oauth2_client_id', $scope.form.client_id);
+				$cookies.put('orcid_oauth2_redirect_uri', 'http://localhost:8080/orcid-api-walkthrough/');
+								
 				setTimeout(function() {
 					window.location.href = apiUri;
-	            }, 100);
-				
+	            }, 125);				
 			};
+			
+			$scope.load();
 		} ]);
 
 
-OauthController.controller("GetTokenController", [ '$scope', '$http', '$location', 
-                                                   function($scope, $http, $location) {
+OauthController.controller("GetTokenController", [ '$scope', '$http', '$location', '$cookies', 
+                                                   function($scope, $http, $location, $cookies) {
 			$scope.getCode = function() {
 				console.log("In get token controller");
 				var code = $location.search()['code'];
+				var cookie1 = $cookies.get('orcid_oauth2_client_id');
+				console.log(cookie1);
 				if (code === undefined || code === null) {
 					console.log("Code not specified");
 				} else {
