@@ -30,7 +30,7 @@ OauthController
 						'$http',
 						'$cookies',
 						function GetCodeController($scope, $http, $cookies) {
-							$scope.authString = "http://[api_url]//oauth/authorize?client_id=[client_id]&response_type=code&redirect_uri=[redirect_uri]&scope=[scope]";
+							$scope.authString = "http://[api_url]/oauth/authorize?client_id=[client_id]&response_type=code&redirect_uri=[redirect_uri]&scope=[scope]";
 									$scope.load = function() {
 										console.log("In get code controller");
 									},
@@ -90,20 +90,37 @@ OauthController
 								}
 							};
 
-							$scope.exchangeCode = function() {																
-								$.ajax({
-							        url: 'http://pub.qa.orcid.org/oauth/token',
-							        type: 'GET',
-							        data: { client_id: $scope.client_id, client_secret : $scope.client_secret, grant_type : authorization_code, redirect_uri : 'http://localhost:8080/orcid-api-walkthrough/', code : $scope.access_code} ,
-							        contentType: 'application/json; charset=utf-8',
-							        success: function (response) {
-							            console.log("this is the response"); 
-							            console.log(angular.toJson(response));
-							        },
-							        error: function () {
-							        	console.log("ERROR!!!!");							            
-							        }
-							    }); 																								
+							$scope.exchangeCode = function() {		
+								
+								$http({
+								    url:'http://pub.qa.orcid.org/oauth/token',
+								    method:'post',
+								    headers: {'Content-Type': 'application/x-www-form-urlencoded',
+								              'Accept': 'application/json',
+								       },
+								    transformRequest: function(obj) {
+								       var str = [];
+								       for(var p in obj)
+								       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+								       var foo= str.join("&");
+								       console.log ("****RETURNING "+foo);
+								       return foo;
+								    },
+								       data: {client_id:'0000-0003-3064-5929',
+								              client_secret:'20877677-5001-4d86-820e-5f527aa9bd14',
+								              grant_type:'authorization_code',
+								              redirect_uri:'http://localhost:8080/orcid-api-walkthrough/',
+											  code:$scope.access_code}
+								       
+								  })
+								                                                 
+								.success (function(data)
+								{	console.log(data);
+								})
+								.error(function(data, status, headers, config)
+								{
+								        console.log("***OOPS "+status + " H: "+ angular.toJson(data));
+								});																							
 							};
 
 							$scope.getCode();
